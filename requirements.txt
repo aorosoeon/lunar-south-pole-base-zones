@@ -1,0 +1,9 @@
+torch==2.15.0
+torch_geometric==2.8.1
+numpy==2.5.4
+pandas==3.1.1
+pyarrow==26.0.1
+matplotlib==3.11.2
+scikit-learn==1.9.1
+scipy==1.18.1
+pillow==13.0.0

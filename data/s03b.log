@@ -1,0 +1,41 @@
+augmentation self-test passed: pole direction stays consistent under all 8 transforms
+device mps, parameters 2,735,234
+step   100  train mse(std) 0.7746  val MAE  18.33 K  val cold MAE  104.5 K  (14s)
+step   200  train mse(std) 0.4297  val MAE  13.21 K  val cold MAE  111.1 K  (28s)
+step   300  train mse(std) 0.3274  val MAE  13.92 K  val cold MAE   83.6 K  (42s)
+step   400  train mse(std) 0.2490  val MAE  10.13 K  val cold MAE   76.4 K  (56s)
+step   500  train mse(std) 0.2364  val MAE   9.89 K  val cold MAE   81.3 K  (69s)
+step   600  train mse(std) 0.2024  val MAE  10.04 K  val cold MAE   67.3 K  (83s)
+step   700  train mse(std) 0.2083  val MAE   9.83 K  val cold MAE   52.6 K  (97s)
+step   800  train mse(std) 0.1810  val MAE   9.04 K  val cold MAE   62.5 K  (111s)
+step   900  train mse(std) 0.1642  val MAE   9.19 K  val cold MAE   75.4 K  (125s)
+step  1000  train mse(std) 0.1469  val MAE   9.33 K  val cold MAE   90.0 K  (139s)
+step  1100  train mse(std) 0.1367  val MAE   8.03 K  val cold MAE   57.3 K  (152s)
+step  1200  train mse(std) 0.1389  val MAE   8.04 K  val cold MAE   54.7 K  (166s)
+step  1300  train mse(std) 0.1321  val MAE   8.01 K  val cold MAE   50.1 K  (180s)
+step  1400  train mse(std) 0.1180  val MAE   7.57 K  val cold MAE   47.8 K  (195s)
+step  1500  train mse(std) 0.1142  val MAE   7.62 K  val cold MAE   52.4 K  (209s)
+step  1600  train mse(std) 0.1113  val MAE   8.28 K  val cold MAE   72.6 K  (224s)
+step  1700  train mse(std) 0.1059  val MAE   7.59 K  val cold MAE   58.8 K  (238s)
+step  1800  train mse(std) 0.0991  val MAE   7.62 K  val cold MAE   51.6 K  (252s)
+step  1900  train mse(std) 0.0898  val MAE   7.00 K  val cold MAE   44.5 K  (266s)
+step  2000  train mse(std) 0.0871  val MAE   7.42 K  val cold MAE   54.4 K  (280s)
+step  2100  train mse(std) 0.0861  val MAE   7.16 K  val cold MAE   47.6 K  (294s)
+step  2200  train mse(std) 0.0842  val MAE   7.01 K  val cold MAE   49.5 K  (308s)
+step  2300  train mse(std) 0.0835  val MAE   7.24 K  val cold MAE   54.7 K  (321s)
+step  2400  train mse(std) 0.0767  val MAE   6.84 K  val cold MAE   49.2 K  (335s)
+step  2500  train mse(std) 0.0765  val MAE   6.88 K  val cold MAE   49.1 K  (349s)
+step  2600  train mse(std) 0.0738  val MAE   6.88 K  val cold MAE   50.1 K  (362s)
+step  2700  train mse(std) 0.0752  val MAE   6.86 K  val cold MAE   50.0 K  (376s)
+step  2800  train mse(std) 0.0738  val MAE   6.90 K  val cold MAE   51.0 K  (390s)
+step  2900  train mse(std) 0.0735  val MAE   6.89 K  val cold MAE   50.2 K  (403s)
+step  3000  train mse(std) 0.0758  val MAE   6.89 K  val cold MAE   50.0 K  (417s)
+best val MAE 6.84 K at step 2400
+
+                         model split  MAE  RMSE  MAE_cold  RMSE_cold  MAE_warm
+            CNN + augmentation   val 6.84 17.67 49.169998  70.820000      5.09
+            CNN + augmentation  test 7.27 19.08 44.790001  67.169998      5.67
+CNN + augmentation + 8-way TTA   val 6.36 16.82 46.410000  67.519997      4.71
+CNN + augmentation + 8-way TTA  test 6.55 17.75 44.709999  66.730003      4.91
+
+cold MAE on the TRAIN area: 32.6 K (was 31.6 K for the first CNN)

@@ -1,0 +1,19 @@
+ice_depth codes: {-999: 1847439, -1: 100319, 0: 18375}
+cold-trap rule (< 110 K) vs surface-stable ice (ice_depth -1 or 0): IoU 0.97
+model thresholds chosen on validation: cold trap < 150 K, sunlit >= 200 K
+
+reference base zones (whole map): 6,038 km2 in 1640 patches (1.7% of the map); cold traps 15,540 km2
+
+CNN zones vs Diviner zones (recall = share of true area found, precision = share of model area that is true):
+             area                        what  reference km2  model km2  recall  precision   IoU
+             test base zones, same thresholds         808.00     223.75   0.182      0.658 0.166
+             test       base zones, val-tuned         808.00     788.50   0.532      0.545 0.369
+             test       cold traps, val-tuned        2193.00    2242.00   0.735      0.719 0.571
+              val base zones, same thresholds         827.75     219.75   0.198      0.747 0.186
+              val       base zones, val-tuned         827.75     897.25   0.597      0.551 0.402
+              val       cold traps, val-tuned        2137.25    2080.25   0.730      0.750 0.587
+train (in-sample) base zones, same thresholds        3902.50    1071.75   0.214      0.779 0.202
+train (in-sample)       base zones, val-tuned        3902.50    3954.25   0.652      0.643 0.478
+train (in-sample)       cold traps, val-tuned        9607.75   10103.75   0.812      0.772 0.655
+
+figures written

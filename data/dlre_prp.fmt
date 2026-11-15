@@ -1,0 +1,159 @@
+
+OBJECT                 = COLUMN
+  COLUMN_NUMBER        = 1
+  NAME                 = tri1_x
+  DATA_TYPE            = ASCII_REAL
+  START_BYTE           = 1
+  BYTES                = 12
+  DESCRIPTION          = "The x coordinate of triangle vertex 1 in a
+                         Moon-centered frame (km)"
+END_OBJECT             = COLUMN
+
+OBJECT                 = COLUMN
+  COLUMN_NUMBER        = 2
+  NAME                 = tri1_y
+  DATA_TYPE            = ASCII_REAL
+  START_BYTE           = 15
+  BYTES                = 12
+  DESCRIPTION          = "The y coordinate of triangle vertex 1 in a
+                         Moon-centered frame (km)"
+END_OBJECT             = COLUMN
+
+OBJECT                 = COLUMN
+  COLUMN_NUMBER        = 3
+  NAME                 = tri1_z
+  DATA_TYPE            = ASCII_REAL
+  START_BYTE           = 29
+  BYTES                = 12
+  DESCRIPTION          = "The z coordinate of triangle vertex 1 in a
+                         Moon-centered frame (km)"
+END_OBJECT             = COLUMN
+
+OBJECT                 = COLUMN
+  COLUMN_NUMBER        = 4
+  NAME                 = tri2_x
+  DATA_TYPE            = ASCII_REAL
+  START_BYTE           = 43
+  BYTES                = 12
+  DESCRIPTION          = "The x coordinate of triangle vertex 2 in a
+                         Moon-centered frame (km)"
+END_OBJECT             = COLUMN
+
+OBJECT                 = COLUMN
+  COLUMN_NUMBER        = 5
+  NAME                 = tri2_y
+  DATA_TYPE            = ASCII_REAL
+  START_BYTE           = 57
+  BYTES                = 12
+  DESCRIPTION          = "The y coordinate of triangle vertex 2 in a
+                         Moon-centered frame (km)"
+END_OBJECT             = COLUMN
+
+OBJECT                 = COLUMN
+  COLUMN_NUMBER        = 6
+  NAME                 = tri2_z
+  DATA_TYPE            = ASCII_REAL
+  START_BYTE           = 71
+  BYTES                = 12
+  DESCRIPTION          = "The z coordinate of triangle vertex 2 in a
+                         Moon-centered frame (km)"
+END_OBJECT             = COLUMN
+
+OBJECT                 = COLUMN
+  COLUMN_NUMBER        = 7
+  NAME                 = tri3_x
+  DATA_TYPE            = ASCII_REAL
+  START_BYTE           = 85
+  BYTES                = 12
+  DESCRIPTION          = "The x coordinate of triangle vertex 3 in a
+                         Moon-centered frame (km)"
+END_OBJECT             = COLUMN
+
+OBJECT                 = COLUMN
+  COLUMN_NUMBER        = 8
+  NAME                 = tri3_y
+  DATA_TYPE            = ASCII_REAL
+  START_BYTE           = 99
+  BYTES                = 12
+  DESCRIPTION          = "The y coordinate of triangle vertex 3 in a
+                         Moon-centered frame (km)"
+END_OBJECT             = COLUMN
+
+OBJECT                 = COLUMN
+  COLUMN_NUMBER        = 9
+  NAME                 = tri3_z
+  DATA_TYPE            = ASCII_REAL
+  START_BYTE           = 113
+  BYTES                = 12
+  DESCRIPTION          = "The z coordinate of triangle vertex 3 in a
+                         Moon-centered frame (km)"
+END_OBJECT             = COLUMN
+
+OBJECT                 = COLUMN
+  COLUMN_NUMBER        = 10
+  NAME                 = tri_clon
+  DATA_TYPE            = ASCII_REAL
+  START_BYTE           = 127
+  BYTES                = 15
+  DESCRIPTION          = "The planetocentric east longitude of the center
+                         of the triangle (degrees)"
+END_OBJECT             = COLUMN
+
+OBJECT                 = COLUMN
+  COLUMN_NUMBER        = 11
+  NAME                 = tri_clat
+  DATA_TYPE            = ASCII_REAL
+  START_BYTE           = 144
+  BYTES                = 15
+  DESCRIPTION          = "The planetocentric latitude of the center of the
+                         triangle (degrees)"
+END_OBJECT             = COLUMN
+
+OBJECT                 = COLUMN
+  COLUMN_NUMBER        = 12
+  NAME                 = tri_calt
+  DATA_TYPE            = ASCII_REAL
+  START_BYTE           = 161
+  BYTES                = 15
+  DESCRIPTION          = "The altitude of the center of the triangle
+                         relative to a 1737.4 km radius sphere (km)"
+END_OBJECT             = COLUMN
+
+OBJECT                 = COLUMN
+  COLUMN_NUMBER        = 13
+  NAME                 = temp_avg
+  DATA_TYPE            = ASCII_REAL
+  START_BYTE           = 178
+  BYTES                = 8
+  DESCRIPTION          = "The annual average temperature (K), calculated at
+                         a depth of 2 cm below the surface"
+END_OBJECT             = COLUMN
+
+OBJECT                 = COLUMN
+  COLUMN_NUMBER        = 14
+  NAME                 = temp_max
+  DATA_TYPE            = ASCII_REAL
+  START_BYTE           = 188
+  BYTES                = 8
+  DESCRIPTION          = "The annual maximum temperature (K), calculated at
+                         the surface"
+END_OBJECT             = COLUMN
+
+OBJECT                 = COLUMN
+  COLUMN_NUMBER        = 15
+  NAME                 = ice_depth
+  DATA_TYPE            = ASCII_REAL
+  START_BYTE           = 198
+  BYTES                = 11
+  DESCRIPTION          = "The calculated depth at which water ice would be
+                         sublimated at a rate of 1 kg m-2 per billion years
+                         (m). Notes: If the calculated depth at which water
+                         ice would be sublimated at a rate of 1 kg m-2 per
+                         billion years is zero, then water ice is stable to
+                         sublimation at the surface. Also, if the
+                         calculated depth at which water ice would be
+                         sublimated at a rate of 1 kg m-2 per billion years
+                         is greater than 2.8738 meters, then the exclude
+                         value of -999.0 is reported."
+  INVALID_CONSTANT     = -999
+END_OBJECT             = COLUMN

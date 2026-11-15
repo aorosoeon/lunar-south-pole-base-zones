@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lunar Base Zones</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --fg:#1b1f24; --muted:#5a6270; --card:#ffffff; --line:#d9dee5;
+    --sun:#c2410c; --ice:#2b6cb0; --zone:#1f8a3b; --miss:#be123c; --teal:#0e7490;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1115; --fg:#e6e8eb; --muted:#9aa4b2; --card:#171a21; --line:#2a2f3a;
+      --sun:#f59e0b; --ice:#60a5fa; --zone:#4ade80; --miss:#fb7185; --teal:#22d3ee;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1115; --fg:#e6e8eb; --muted:#9aa4b2; --card:#171a21; --line:#2a2f3a;
+    --sun:#f59e0b; --ice:#60a5fa; --zone:#4ade80; --miss:#fb7185; --teal:#22d3ee;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:var(--bg);color:var(--fg);font:18px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif}
+  .slide{display:none;min-height:100vh;padding:56px 72px 72px;flex-direction:column;justify-content:center;max-width:1280px;margin:0 auto}
+  .slide.active{display:flex}
+  h1{font-size:52px;line-height:1.08;margin:0 0 16px;letter-spacing:-.01em}
+  h2{font-size:34px;line-height:1.15;margin:0 0 24px;letter-spacing:-.01em}
+  .kicker{color:var(--muted);font-size:16px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+  .sub{color:var(--muted);font-size:22px;margin:0}
+  ul{margin:0;padding-left:22px}
+  li{margin:8px 0}
+  .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:center}
+  .cols.wide-left{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}
+  .cols.three{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:stretch}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+  .card h3{margin:0 0 10px;font-size:20px}
+  .card p{margin:0}
+  .dot{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;color:#fff;font-weight:700;font-size:16px;margin-right:10px;flex:none}
+  .head{display:flex;align-items:center;margin-bottom:10px}
+  .head h3{margin:0}
+  .shot{display:block;max-width:100%;height:auto;max-height:calc(100vh - 300px);border-radius:10px;border:1px solid var(--line);margin:0 auto}
+  .caption{color:var(--muted);font-size:15px;margin-top:10px}
+  table{border-collapse:collapse;width:100%;font-size:16px;margin:4px 0 10px}
+  th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+  tr.best td{font-weight:700}
+  .small{font-size:15px;color:var(--muted)}
+  .note{margin:22px 0 0;font-size:19px}
+  .big{font-size:44px;font-weight:700;line-height:1;margin:0 0 6px;font-variant-numeric:tabular-nums}
+  .stat{margin:0 0 22px}
+  .stat .lbl{font-size:17px}
+  .steps{display:grid;gap:14px}
+  .step{display:flex;align-items:flex-start}
+  .step b{display:block}
+  .todo{color:var(--miss);font-weight:600}
+  .hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:center}
+  .hero img{width:100%;max-height:calc(100vh - 160px);object-fit:contain;border-radius:12px}
+  .footer{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;padding:10px 24px;color:var(--muted);font-size:13px;pointer-events:none}
+  @media screen and (max-height:760px){.slide{padding:32px 72px 56px}h2{font-size:28px;margin:0 0 16px}.card{padding:14px 16px}.big{font-size:36px}.caption{margin-top:6px;font-size:14px}}
+  @media screen and (max-width:900px){.slide{padding:32px 16px 64px}.cols,.cols.three,.cols.wide-left,.hero{grid-template-columns:1fr}h1{font-size:36px}h2{font-size:26px}body{font-size:16px}.shot{max-height:none}}
+  @media print{
+    @page{size:1280px 720px;margin:0}
+    html,body{height:auto}
+    .slide{display:flex;width:1280px;height:720px;min-height:0;max-width:none;padding:44px 64px;overflow:hidden;break-after:page;page-break-after:always}
+    .slide:last-of-type{break-after:auto;page-break-after:auto}
+    .footer{display:none}
+    .shot{max-height:430px}
+    .hero img{max-height:600px}
+    .card,.dot{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="slide active">
+  <div class="hero">
+    <div>
+      <div class="kicker">NASA Space Apps Challenge 2026 · [Team name]</div>
+      <h1>[Project name]</h1>
+      <p class="sub">Mapping candidate base zones at the lunar south pole from terrain, with deep learning</p>
+      <p class="small" style="margin-top:28px">[Team members]<br>Challenge: Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars</p>
+    </div>
+    <div>
+      <img src="img/s05_hero_map.jpg" alt="Map of annual maximum surface temperature at the lunar south pole: dark cold craters among bright sunlit terrain">
+      <div class="caption">Annual max surface temperature, 600 × 600&nbsp;km around the south pole (NASA LRO Diviner). Dark = cold craters.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="kicker">The problem</div>
+  <h2>A permanent base needs sun, flat ground and ice nearby</h2>
+  <div class="cols three">
+    <div class="card">
+      <div class="head"><span class="dot" style="background:var(--sun)">1</span><h3>Sunlight</h3></div>
+      <p>Power and warmth. Near the pole the Sun stays within a few degrees of the horizon, so hills cast shadows tens of km long.</p>
+    </div>
+    <div class="card">
+      <div class="head"><span class="dot" style="background:var(--zone)">2</span><h3>Gentle ground</h3></div>
+      <p>Landing and building need slopes of 8° or less.</p>
+    </div>
+    <div class="card">
+      <div class="head"><span class="dot" style="background:var(--ice)">3</span><h3>Ice within reach</h3></div>
+      <p>Water ice survives only in cold traps: craters where the yearly maximum temperature stays below 110&nbsp;K.</p>
+    </div>
+  </div>
+  <p class="note"><b>Our question:</b> can a neural network predict the thermal map from terrain alone, and find where all three needs meet?</p>
+  <p class="note" style="margin-top:8px"><b>Why it matters for this challenge:</b> these zones define what an Earth analog has to match (slide 6).</p>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="kicker">Data and method</div>
+  <h2>NASA thermal data, a geographic split, three models</h2>
+  <div class="cols" style="align-items:start">
+    <div class="card">
+      <h3>Data: NASA LRO Diviner Polar Resource Product</h3>
+      <ul>
+        <li><b>2.88 million</b> terrain triangles on a 0.5&nbsp;km grid, 600 × 600&nbsp;km around the south pole</li>
+        <li>Target: <b>annual max surface temperature</b> (K), from a thermal model fitted to Diviner's first mapping year</li>
+        <li>Inputs come only from terrain: elevation, slope, which way the ground faces, latitude</li>
+      </ul>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="dot" style="background:var(--teal)">1</span><div><b>Geographic split</b>50&nbsp;km blocks for train / validation / test, with 5&nbsp;km buffers, so the test is on terrain the model has never seen</div></div>
+      <div class="step"><span class="dot" style="background:var(--teal)">2</span><div><b>Models</b>Latitude only → MLP (one triangle at a time) → U-Net CNN that sees about 90&nbsp;km of terrain around each point</div></div>
+      <div class="step"><span class="dot" style="background:var(--teal)">3</span><div><b>Augmentation</b>Training patches are rotated and flipped. This is valid because the Sun circles the pole over a year</div></div>
+      <div class="step"><span class="dot" style="background:var(--teal)">4</span><div><b>Base-zone rule</b>Slope ≤ 8°, sunlit (≥ 200&nbsp;K), within 2&nbsp;km of a cold trap (&lt; 110&nbsp;K)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="kicker">Results</div>
+  <h2>From terrain alone, the CNN predicts temperature to within 7&nbsp;K</h2>
+  <div class="cols wide-left">
+    <div>
+      <img class="shot" src="img/s05_slide_results_map.jpg" alt="Side by side: Diviner reference temperatures and CNN predictions near the pole; held-out blocks outlined in cyan">
+      <div class="caption">Cyan outline: held-out blocks. No temperatures from these areas were used in training.</div>
+    </div>
+    <div>
+      <table>
+        <tr><th>Model (test blocks)</th><th class="n">Error, all</th><th class="n">Error, cold traps</th></tr>
+        <tr><td>Latitude only</td><td class="n">30.8&nbsp;K</td><td class="n">144&nbsp;K</td></tr>
+        <tr><td>MLP</td><td class="n">13.5&nbsp;K</td><td class="n">82&nbsp;K</td></tr>
+        <tr><td>CNN</td><td class="n">12.9&nbsp;K</td><td class="n">83&nbsp;K</td></tr>
+        <tr class="best"><td>CNN + augmentation</td><td class="n">7.3&nbsp;K</td><td class="n">45&nbsp;K</td></tr>
+      </table>
+      <p class="small">Error = mean absolute error. Cold traps are hardest: the model blurs the sharp edge between shadow and sunlight.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="kicker">Candidate base zones</div>
+  <h2>Candidate base zones cover 1.7% of the map</h2>
+  <div class="cols">
+    <div>
+      <img class="shot" src="img/s04_base_zones_reference.jpg" alt="Hillshaded map of the lunar south pole with cold traps in blue and candidate base zones in green">
+    </div>
+    <div>
+      <div class="stat"><div class="big" style="color:var(--zone)">6,038 km²</div><div class="lbl">of candidate base zones, in 1,640 patches on the sunny rims of cold craters</div></div>
+      <div class="stat"><div class="big" style="color:var(--ice)">74%</div><div class="lbl">of cold-trap area found by the CNN from terrain alone (test blocks)</div></div>
+      <div class="stat"><div class="big" style="color:var(--sun)">53%</div><div class="lbl">of base-zone area found; 55% of the area it flags is correct</div></div>
+      <p><b><i>Good enough to screen terrain for sites; not precise enough to choose one.</i></b></p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="kicker">Earth analog</div>
+  <h2>What an Earth analog has to match</h2>
+  <div class="cols" style="align-items:start">
+    <div class="steps">
+      <div class="step"><span class="dot" style="background:var(--sun)">1</span><div><b>Low sun</b>At most about 1.5° above the horizon at the pole and 6.5° at 85°S, so shadows are long and move</div></div>
+      <div class="step"><span class="dot" style="background:var(--zone)">2</span><div><b>Gentle ground next to shadow</b>Slopes of 8° or less within 2&nbsp;km of ground that never sees the Sun</div></div>
+      <div class="step"><span class="dot" style="background:var(--miss)">3</span><div><b>Extreme contrast</b>Sunlit ground above 200&nbsp;K a few km from cold traps below 110&nbsp;K</div></div>
+      <div class="step"><span class="dot" style="background:var(--ice)">4</span><div><b>Ice that survives only in shadow</b>Held in place by cold, not by an atmosphere</div></div>
+    </div>
+    <div class="card">
+      <h3>Candidate Earth analogs</h3>
+      <ul>
+        <li class="todo">[Feyi: site 1, the trait it matches, where it breaks down, source]</li>
+        <li class="todo">[Feyi: site 2, the trait it matches, where it breaks down, source]</li>
+      </ul>
+      <p style="margin-top:14px"><b>Where every Earth analog breaks down:</b> air, gravity and radiation differ, and no Earth surface gets as cold as a lunar cold trap <span class="todo">[Feyi: verify and cite]</span>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="kicker">Wrap-up</div>
+  <h2>Limits and next steps</h2>
+  <div class="cols" style="align-items:start">
+    <div class="card">
+      <h3>Limits</h3>
+      <ul>
+        <li>Targets come from a thermal model fitted to Diviner data, not direct measurements</li>
+        <li>Annual max temperature shows peak sun, not hours of sunlight</li>
+        <li>The CNN blurs shadow edges, exactly where base zones sit</li>
+        <li>South pole only</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Next steps</h3>
+      <ul>
+        <li>Graph neural network on the triangle mesh, to sharpen shadow edges</li>
+        <li>A horizon-height input for distant shadow casters</li>
+        <li>Test on the north pole</li>
+        <li>Run the same model on Earth terrain to rank analog sites</li>
+      </ul>
+    </div>
+  </div>
+  <p class="small" style="margin-top:22px"><i>Code written with AI assistance (Claude). Data choices, analysis and conclusions are the team's. Details in the README.</i></p>
+</section>
+
+<div class="footer"><span>[Project name] · NASA Space Apps Challenge 2026</span><span id="pos"></span></div>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide')), i=0, pos=document.getElementById('pos'), focusedAt=0;
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i)});
+    pos.textContent=(i+1)+' / '+slides.length;
+    try{history.replaceState(null,'','#'+(i+1))}catch(e){}
+    window.scrollTo(0,0);
+  }
+  function fromHash(){var h=parseInt(location.hash.slice(1),10);return isNaN(h)?0:h-1}
+  show(fromHash());
+  window.addEventListener('hashchange',function(){var n=fromHash();if(n!==i)show(n)});
+  window.addEventListener('focus',function(){focusedAt=Date.now()});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();show(i+1)}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(i-1)}
+    else if(e.key==='Home'){show(0)} else if(e.key==='End'){show(slides.length-1)}
+  });
+  document.addEventListener('click',function(e){
+    if(Date.now()-focusedAt<400) return;
+    if(window.getSelection&&String(window.getSelection())) return;
+    if(e.target.closest('a,img,table')) return;
+    show(e.clientX<window.innerWidth*0.25?i-1:i+1);
+  });
+})();
+</script>
+</body>
+</html>

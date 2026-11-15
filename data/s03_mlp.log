@@ -1,0 +1,14 @@
+epoch  0  train mse(std) 0.5418  val MAE  14.12 K  (1s)
+epoch  1  train mse(std) 0.3727  val MAE  11.14 K  (3s)
+epoch  2  train mse(std) 0.1539  val MAE  10.76 K  (4s)
+epoch  3  train mse(std) 0.2381  val MAE  10.43 K  (5s)
+epoch  4  train mse(std) 0.1602  val MAE  10.61 K  (6s)
+epoch  5  train mse(std) 0.2431  val MAE  10.87 K  (8s)
+epoch  6  train mse(std) 0.1374  val MAE  11.51 K  (9s)
+epoch  7  train mse(std) 0.1634  val MAE  11.41 K  (10s)
+
+               model split   MAE      RMSE   MAE_cold  RMSE_cold  MAE_warm
+latitude-only linear   val 28.99 43.290001 145.350006 146.210007 24.180000
+latitude-only linear  test 30.82 44.680000 144.369995 145.190002 25.969999
+  MLP (per triangle)   val 10.43 26.480000  81.150002 102.139999  7.510000
+  MLP (per triangle)  test 13.54 29.520000  81.580002  98.669998 10.630000

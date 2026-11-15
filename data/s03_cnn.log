@@ -1,0 +1,17 @@
+device mps, parameters 5,145,346
+  eval: max |out diff| 7.45e-08 (out scale 0.18), grad rel diff 4.04e-06
+  train: max |out diff| 5.13e-06 (out scale 3.56), grad rel diff 1.39e-04
+step   200  train mse(std) 0.3229  val MAE  12.82 K  (31s)
+step   400  train mse(std) 0.1384  val MAE  12.75 K  (61s)
+step   600  train mse(std) 0.0901  val MAE  14.42 K  (91s)
+step   800  train mse(std) 0.0629  val MAE  16.48 K  (121s)
+step  1000  train mse(std) 0.0570  val MAE  15.68 K  (151s)
+step  1200  train mse(std) 0.0503  val MAE  16.46 K  (180s)
+step  1400  train mse(std) 0.0403  val MAE  20.93 K  (210s)
+step  1600  train mse(std) 0.0362  val MAE  20.35 K  (240s)
+step  1800  train mse(std) 0.0345  val MAE  15.64 K  (270s)
+step  2000  train mse(std) 0.0334  val MAE  20.77 K  (300s)
+
+            model split   MAE      RMSE  MAE_cold  RMSE_cold  MAE_warm
+CNN (U-Net, grid)   val 12.75 30.549999 78.879997  99.809998     10.02
+CNN (U-Net, grid)  test 12.95 30.920000 83.180000 102.000000      9.94
