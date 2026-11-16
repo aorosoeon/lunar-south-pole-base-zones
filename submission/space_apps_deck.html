@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lunar Base Zones</title>
+<title>LunaTerra</title>
 <style>
   :root{
     --bg:#f6f7f9; --fg:#1b1f24; --muted:#5a6270; --card:#ffffff; --line:#d9dee5;
@@ -77,14 +77,14 @@
 <section class="slide active">
   <div class="hero">
     <div>
-      <div class="kicker">NASA Space Apps Challenge 2026 · [Team name]</div>
-      <h1>[Project name]</h1>
-      <p class="sub">Mapping candidate base zones at the lunar south pole from terrain, with deep learning</p>
-      <p class="small" style="margin-top:28px">[Team members]<br>Challenge: Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars</p>
+      <div class="kicker">NASA Space Apps Challenge 2026 · Olive Nebulae</div>
+      <h1>LunaTerra</h1>
+      <p class="sub">Mapping candidate base zones at the lunar south pole with deep learning, and what an Earth analog must match</p>
+      <p class="small" style="margin-top:28px">Arsen Chuzhykov · Oluwafeyisayo Afolabi<br>Challenge: Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars</p>
     </div>
     <div>
       <img src="img/s05_hero_map.jpg" alt="Map of annual maximum surface temperature at the lunar south pole: dark cold craters among bright sunlit terrain">
-      <div class="caption">Annual max surface temperature, 600 × 600&nbsp;km around the south pole (NASA LRO Diviner). Dark = cold craters.</div>
+      <div class="caption">Annual maximum surface temperature from NASA's Diviner thermal model (Polar Resource Product), 600 × 600&nbsp;km around the south pole. Dark = cold craters.</div>
     </div>
   </div>
 </section>
@@ -96,15 +96,15 @@
   <div class="cols three">
     <div class="card">
       <div class="head"><span class="dot" style="background:var(--sun)">1</span><h3>Sunlight</h3></div>
-      <p>Power and warmth. Near the pole the Sun stays within a few degrees of the horizon, so hills cast shadows tens of km long.</p>
+      <p>Power and warmth. Near the pole the Sun stays within a few degrees of the horizon, so hills cast shadows tens of&nbsp;km long.</p>
     </div>
     <div class="card">
       <div class="head"><span class="dot" style="background:var(--zone)">2</span><h3>Gentle ground</h3></div>
-      <p>Landing and building need slopes of 8° or less.</p>
+      <p>We screen for slopes of 8° or less. Choosing a real landing site needs much finer maps.</p>
     </div>
     <div class="card">
       <div class="head"><span class="dot" style="background:var(--ice)">3</span><h3>Ice within reach</h3></div>
-      <p>Water ice survives only in cold traps: craters where the yearly maximum temperature stays below 110&nbsp;K.</p>
+      <p>Surface water ice lasts only in cold traps: shadowed ground where the yearly maximum temperature stays below about 110&nbsp;K.</p>
     </div>
   </div>
   <p class="note"><b>Our question:</b> can a neural network predict the thermal map from terrain alone, and find where all three needs meet?</p>
@@ -114,7 +114,7 @@
 <!-- 3 -->
 <section class="slide">
   <div class="kicker">Data and method</div>
-  <h2>NASA thermal data, a geographic split, three models</h2>
+  <h2>NASA thermal data, a geographic split, four models compared</h2>
   <div class="cols" style="align-items:start">
     <div class="card">
       <h3>Data: NASA LRO Diviner Polar Resource Product</h3>
@@ -125,10 +125,10 @@
       </ul>
     </div>
     <div class="steps">
-      <div class="step"><span class="dot" style="background:var(--teal)">1</span><div><b>Geographic split</b>50&nbsp;km blocks for train / validation / test, with 5&nbsp;km buffers, so the test is on terrain the model has never seen</div></div>
+      <div class="step"><span class="dot" style="background:var(--teal)">1</span><div><b>Geographic split</b>50&nbsp;km blocks for train / validation / test. Temperatures from test blocks are never used in training, and training skips a 5&nbsp;km buffer around them</div></div>
       <div class="step"><span class="dot" style="background:var(--teal)">2</span><div><b>Models</b>Latitude only → MLP (one triangle at a time) → U-Net CNN that sees about 90&nbsp;km of terrain around each point</div></div>
       <div class="step"><span class="dot" style="background:var(--teal)">3</span><div><b>Augmentation</b>Training patches are rotated and flipped. This is valid because the Sun circles the pole over a year</div></div>
-      <div class="step"><span class="dot" style="background:var(--teal)">4</span><div><b>Base-zone rule</b>Slope ≤ 8°, sunlit (≥ 200&nbsp;K), within 2&nbsp;km of a cold trap (&lt; 110&nbsp;K)</div></div>
+      <div class="step"><span class="dot" style="background:var(--teal)">4</span><div><b>Base-zone rule (our screening choices)</b>Slope ≤ 8°, sunlit (annual max ≥ 200&nbsp;K), within 2&nbsp;km of a cold trap (&lt; 110&nbsp;K)</div></div>
     </div>
   </div>
 </section>
@@ -136,11 +136,11 @@
 <!-- 4 -->
 <section class="slide">
   <div class="kicker">Results</div>
-  <h2>From terrain alone, the CNN predicts temperature to within 7&nbsp;K</h2>
+  <h2>From terrain alone, the CNN's average error is 7.3&nbsp;K</h2>
   <div class="cols wide-left">
     <div>
       <img class="shot" src="img/s05_slide_results_map.jpg" alt="Side by side: Diviner reference temperatures and CNN predictions near the pole; held-out blocks outlined in cyan">
-      <div class="caption">Cyan outline: held-out blocks. No temperatures from these areas were used in training.</div>
+      <div class="caption">Cyan outline: held-out blocks; no temperatures from these areas were used in training. The prediction map averages 8 rotated and flipped copies (test error 6.5&nbsp;K).</div>
     </div>
     <div>
       <table>
@@ -162,12 +162,14 @@
   <div class="cols">
     <div>
       <img class="shot" src="img/s04_base_zones_reference.jpg" alt="Hillshaded map of the lunar south pole with cold traps in blue and candidate base zones in green">
+      <div class="caption">Map from NASA's reference temperatures. Green = candidate base zones, blue = cold traps.</div>
     </div>
     <div>
-      <div class="stat"><div class="big" style="color:var(--zone)">6,038 km²</div><div class="lbl">of candidate base zones, in 1,640 patches on the sunny rims of cold craters</div></div>
-      <div class="stat"><div class="big" style="color:var(--ice)">74%</div><div class="lbl">of cold-trap area found by the CNN from terrain alone (test blocks)</div></div>
-      <div class="stat"><div class="big" style="color:var(--sun)">53%</div><div class="lbl">of base-zone area found; 55% of the area it flags is correct</div></div>
-      <p><b><i>Good enough to screen terrain for sites; not precise enough to choose one.</i></b></p>
+      <div class="stat"><div class="big" style="color:var(--zone)">6,038 km²</div><div class="lbl">of candidate base zones in 1,640 patches, from NASA's reference temperatures (whole map)</div></div>
+      <div class="stat"><div class="big" style="color:var(--ice)">74%</div><div class="lbl">of cold-trap area found by the CNN from terrain alone (recall, test blocks)</div></div>
+      <div class="stat"><div class="big" style="color:var(--sun)">53%</div><div class="lbl">of base-zone area found (recall, test blocks); 55% of the area it flags is correct</div></div>
+      <p class="small" style="margin:0 0 14px">The CNN's averaged predictions run warm in cold traps, so its two thresholds were tuned on validation blocks: cold &lt; 150&nbsp;K, sunlit ≥ 200&nbsp;K. With the reference thresholds it finds only 18% of base-zone area.</p>
+      <p><b><i>A first screening step: it narrows the search, but it cannot choose a landing or base site.</i></b></p>
     </div>
   </div>
 </section>
@@ -175,21 +177,21 @@
 <!-- 6 -->
 <section class="slide">
   <div class="kicker">Earth analog</div>
-  <h2>What an Earth analog has to match</h2>
+  <h2>Earth sites match some lunar traits, not the full lunar environment</h2>
   <div class="cols" style="align-items:start">
     <div class="steps">
-      <div class="step"><span class="dot" style="background:var(--sun)">1</span><div><b>Low sun</b>At most about 1.5° above the horizon at the pole and 6.5° at 85°S, so shadows are long and move</div></div>
-      <div class="step"><span class="dot" style="background:var(--zone)">2</span><div><b>Gentle ground next to shadow</b>Slopes of 8° or less within 2&nbsp;km of ground that never sees the Sun</div></div>
+      <div class="step"><span class="dot" style="background:var(--sun)">1</span><div><b>Low sun</b>At most about 1.5° above a flat horizon at the pole and 6.5° at 85°S, so shadows are long and move</div></div>
+      <div class="step"><span class="dot" style="background:var(--zone)">2</span><div><b>Gentle ground next to shadow</b>Slopes of 8° or less within 2&nbsp;km of ground that never sees the Sun (our screening choices)</div></div>
       <div class="step"><span class="dot" style="background:var(--miss)">3</span><div><b>Extreme contrast</b>Sunlit ground above 200&nbsp;K a few km from cold traps below 110&nbsp;K</div></div>
-      <div class="step"><span class="dot" style="background:var(--ice)">4</span><div><b>Ice that survives only in shadow</b>Held in place by cold, not by an atmosphere</div></div>
+      <div class="step"><span class="dot" style="background:var(--ice)">4</span><div><b>Surface ice held by cold shadow</b>Kept in place by cold, not by an atmosphere</div></div>
     </div>
     <div class="card">
       <h3>Candidate Earth analogs</h3>
       <ul>
-        <li class="todo">[Feyi: site 1, the trait it matches, where it breaks down, source]</li>
-        <li class="todo">[Feyi: site 2, the trait it matches, where it breaks down, source]</li>
+        <li><b>Haughton Crater, Devon Island, Canada (75°N).</b> A 20&nbsp;km polar impact crater with ice-rich permafrost. Matches traits 1 and 4 in part. It does not have the lunar sun angle or exposed ice in shadow. <span class="small">Fong et al. 2010, NASA</span></li>
+        <li><b>University Valley, Antarctica (78°S).</b> Dry soil over ground ice 42&nbsp;cm down. Matches trait 4 in part. Air moisture and soil cover control the ice, not shadow alone. <span class="small">Marinova et al. 2022</span></li>
       </ul>
-      <p style="margin-top:14px"><b>Where every Earth analog breaks down:</b> air, gravity and radiation differ, and no Earth surface gets as cold as a lunar cold trap <span class="todo">[Feyi: verify and cite]</span>.</p>
+      <p style="margin-top:14px"><b>Where every Earth analog breaks down:</b> air, gravity and radiation differ. The coldest snow surface seen by satellite in Antarctica was about 175&nbsp;K, far warmer than lunar cold traps below 110&nbsp;K. <span class="small">Scambos et al. 2018</span></p>
     </div>
   </div>
 </section>
@@ -205,23 +207,23 @@
         <li>Targets come from a thermal model fitted to Diviner data, not direct measurements</li>
         <li>Annual max temperature shows peak sun, not hours of sunlight</li>
         <li>The CNN blurs shadow edges, exactly where base zones sit</li>
-        <li>South pole only</li>
+        <li>South pole only. The Earth sites come from the literature; our model did not rank them</li>
       </ul>
     </div>
     <div class="card">
       <h3>Next steps</h3>
       <ul>
-        <li>Graph neural network on the triangle mesh, to sharpen shadow edges</li>
+        <li>Test whether a graph neural network on the triangle mesh sharpens shadow edges</li>
         <li>A horizon-height input for distant shadow casters</li>
         <li>Test on the north pole</li>
-        <li>Run the same model on Earth terrain to rank analog sites</li>
+        <li>Build an Earth analog comparison from illumination, climate and ground-ice data</li>
       </ul>
     </div>
   </div>
-  <p class="small" style="margin-top:22px"><i>Code written with AI assistance (Claude). Data choices, analysis and conclusions are the team's. Details in the README.</i></p>
+  <p class="small" style="margin-top:22px"><i>AI use: Claude wrote most of the code and drafted the slides and text; ChatGPT/Codex helped find sources and check claims. The idea, data choices, analysis and conclusions are the team's. Details in the README.</i></p>
 </section>
 
-<div class="footer"><span>[Project name] · NASA Space Apps Challenge 2026</span><span id="pos"></span></div>
+<div class="footer"><span>LunaTerra · Olive Nebulae · NASA Space Apps Challenge 2026</span><span id="pos"></span></div>
 <script>
 (function(){
   var slides=[].slice.call(document.querySelectorAll('.slide')), i=0, pos=document.getElementById('pos'), focusedAt=0;
